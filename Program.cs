@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SD_340_W22SD_Final_Project_Group6.BLL;
 using SD_340_W22SD_Final_Project_Group6.Data;
 using SD_340_W22SD_Final_Project_Group6.Models;
 using System.Net;
@@ -17,11 +18,15 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+// repositories
 builder.Services.AddScoped<IRepository<Comment>, CommentRepo>();
 builder.Services.AddScoped<IRepository<Project>, ProjectRepo>();
 builder.Services.AddScoped<IRepository<Ticket>, TicketRepo>();
 builder.Services.AddScoped<IRepository<TicketWatcher>, TicketWatcherRepo>();
-builder.Services.AddScoped<IRepository<UserProject>, UserProjectRepo>();
+builder.Services.AddScoped<IUserProjectRepository, UserProjectRepo>();
+
+// business logic
+builder.Services.AddScoped<IProjectBL, ProjectBL>();
 
 var app = builder.Build();
 

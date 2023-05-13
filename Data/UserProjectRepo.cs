@@ -2,7 +2,7 @@
 
 namespace SD_340_W22SD_Final_Project_Group6.Data
 {
-    public class UserProjectRepo : IRepository<UserProject>
+    public class UserProjectRepo : IUserProjectRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -39,6 +39,11 @@ namespace SD_340_W22SD_Final_Project_Group6.Data
             _context.Update(entity);
             _context.SaveChanges();
             return entity;
+        }
+
+        public UserProject GetUserProject(string userId, int projectId)
+        {
+            return _context.UserProjects.First(up => up.ProjectId == projectId && up.UserId == userId);
         }
     }
 }
