@@ -29,9 +29,9 @@ namespace SD_340_W22SD_Final_Project_Group6.Data
             return _context.Comments.Find(id);
         }
 
-        public ICollection<Comment> GetAll()
+        public IQueryable<Comment> GetAll()
         {
-            return _context.Comments.ToList();
+            return _context.Comments;
         }
 
         public Comment Update(Comment entity)

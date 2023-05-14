@@ -31,30 +31,27 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
             return View(tickets);
         }
 
-        // GET: Tickets/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null || _context.Tickets == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //GET: Tickets/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var ticket = await _context.Tickets.Include(t => t.Project).Include(t => t.TicketWatchers).ThenInclude(tw => tw.Watcher).Include(u => u.Owner).Include(t => t.Comments).ThenInclude(c => c.CreatedBy)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    List<SelectListItem> currUsers = new List<SelectListItem>();
-        //    ticket.Project.AssignedTo.ToList().ForEach(t =>
-        //    {
-        //        currUsers.Add(new SelectListItem(t.ApplicationUser.UserName, t.ApplicationUser.Id.ToString()));
-        //    });
-        //    ViewBag.Users = currUsers;
+            var ticket = await _ticketBL.GetTicketWithDetails(id.Value);
 
-        //    if (ticket == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (ticket == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(ticket);
-        //}
+            var currUsers = ticket.Project.AssignedTo.Select(t => new SelectListItem(t.ApplicationUser.UserName, t.ApplicationUser.Id.ToString())).ToList();
+
+            ViewBag.Users = currUsers;
+
+            return View(ticket);
+        }
 
         //// GET: Tickets/Create
         //[Authorize(Roles = "ProjectManager")]
@@ -107,7 +104,7 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
         //    }
 
         //    var ticket = await _context.Tickets.Include(t => t.Owner).FirstAsync(t => t.Id == id);
-      
+
         //    if (ticket == null)
         //    {
         //        return NotFound();
@@ -137,7 +134,7 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
         //    //To be fixed ASAP
         //    currTicket.Owner = currUser;
         //    await _context.SaveChangesAsync();
-            
+
         //    return RedirectToAction("Edit", new { id = ticketId });
         //}
 
@@ -266,7 +263,7 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
         //    {
         //        try
         //        {
-                    
+
         //            string userName = User.Identity.Name;
         //            ApplicationUser user = _context.Users.First(u => u.UserName == userName);
         //            Ticket ticket = _context.Tickets.FirstOrDefault(t => t.Id == id);
@@ -366,7 +363,7 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
         //        currProj.Tickets.Remove(ticket);
         //        _context.Tickets.Remove(ticket);
         //    }
-            
+
         //    await _context.SaveChangesAsync();
         //    return RedirectToAction("Index", "Projects");
         //}

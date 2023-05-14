@@ -29,9 +29,9 @@ namespace SD_340_W22SD_Final_Project_Group6.Data
             return _context.TicketWatchers.Find(id);
         }
 
-        public ICollection<TicketWatcher> GetAll()
+        public IQueryable<TicketWatcher> GetAll()
         {
-            return _context.TicketWatchers.ToList();
+            return _context.TicketWatchers;
         }
 
         public TicketWatcher Update(TicketWatcher entity)

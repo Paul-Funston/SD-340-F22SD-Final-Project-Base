@@ -5,7 +5,7 @@
         public T Create(T entity);
 
         public T? Get(int id);
-        public ICollection<T> GetAll();
+        public IQueryable<T> GetAll();
 
         public T Update(T entity);
 

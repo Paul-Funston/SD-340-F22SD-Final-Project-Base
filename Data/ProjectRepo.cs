@@ -30,9 +30,9 @@ namespace SD_340_W22SD_Final_Project_Group6.Data
             return _context.Projects.Find(id);
         }
 
-        public ICollection<Project> GetAll()
+        public IQueryable<Project> GetAll()
         {
-           return _context.Projects.ToList();
+           return _context.Projects;
         }
 
         public Project Update(Project entity)

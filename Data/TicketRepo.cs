@@ -29,9 +29,9 @@ namespace SD_340_W22SD_Final_Project_Group6.Data
             return _context.Tickets.Find(id);
         }
 
-        public ICollection<Ticket> GetAll()
+        public IQueryable<Ticket> GetAll()
         {
-            return _context.Tickets.ToList();
+            return _context.Tickets;
         }
 
         public Ticket Update(Ticket entity)

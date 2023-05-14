@@ -29,9 +29,9 @@ namespace SD_340_W22SD_Final_Project_Group6.Data
             return _context.UserProjects.Find(id);
         }
 
-        public ICollection<UserProject> GetAll()
+        public IQueryable<UserProject> GetAll()
         {
-            return _context.UserProjects.ToList();
+            return _context.UserProjects;
         }
 
         public UserProject Update(UserProject entity)
