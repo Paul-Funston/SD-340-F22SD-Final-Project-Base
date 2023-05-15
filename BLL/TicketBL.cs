@@ -1,4 +1,5 @@
-﻿using SD_340_W22SD_Final_Project_Group6.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SD_340_W22SD_Final_Project_Group6.Data;
 using SD_340_W22SD_Final_Project_Group6.Models;
 using X.PagedList;
 
@@ -26,9 +27,27 @@ namespace SD_340_W22SD_Final_Project_Group6.BLL
         {
             return await _ticketRepo.GetAll().ToListAsync();
         }
-        public async Task<Ticket> GetTicketDetails(int id)
+        public async Task<Ticket> GetTicketDetails(int? id)
         {
-            return  _ticketRepo.Get(id);
+            if(id == null)
+    {
+                return null;
+            }
+
+            Ticket ticket =  _ticketRepo.Get(id.Value);
+
+            if (ticket == null)
+            {
+                return null;
+            }
+            
+            ticket.Project =  _projectRepo.Get(ticket.Project.Id);
+            ticket.TicketWatchers = (ICollection<TicketWatcher>?)_ticketWatcherRepo.Get(ticket.Id);
+            ticket.Owner =  _userRepo.Get(int.Parse(ticket.Owner.Id));
+            ticket.Comments = (ICollection<Comment>)_commentRepo.Get(ticket.Id);
+
+            return ticket;
+
         }
     }
 }
