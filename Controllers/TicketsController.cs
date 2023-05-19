@@ -72,10 +72,7 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
             } catch
             {
 				return NotFound();
-			}
-
-            
-            
+			}  
 
         }
 
@@ -86,15 +83,15 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "ProjectManager")]
 		
-		public async Task<IActionResult> Create([Bind("Title, Body, RequiredHours, SelectedProject, Priority")]CreateTicketViewModel VM, string userId)
+		public async Task<IActionResult> Create([Bind("Title, Body, RequiredHours, SelectedProject, Priority")]CreateTicketViewModel VM, string userId, int SelectedProject)
         {
 
             try
             {
                 
-              Ticket ticket = await _ticketBL.CreateTicket(VM, userId);
+              Ticket ticket = await _ticketBL.CreateTicket(VM, userId, SelectedProject);
 
-              return View(VM);
+              return RedirectToAction("Index", "Projects", new { area = "" });
                 
             } catch
             {

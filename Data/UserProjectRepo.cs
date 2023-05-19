@@ -1,4 +1,5 @@
-﻿using SD_340_W22SD_Final_Project_Group6.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SD_340_W22SD_Final_Project_Group6.Models;
 
 namespace SD_340_W22SD_Final_Project_Group6.Data
 {
@@ -29,12 +30,12 @@ namespace SD_340_W22SD_Final_Project_Group6.Data
             return _context.UserProjects.Find(id);
         }
 
-        public ICollection<UserProject> GetAll()
-        {
-            return _context.UserProjects.ToList();
-        }
+		public ICollection<UserProject> GetAll()
+		{
+			return _context.UserProjects.Include(up => up.ApplicationUser).ToList();
+		}
 
-        public UserProject Update(UserProject entity)
+		public UserProject Update(UserProject entity)
         {
             _context.Update(entity);
             _context.SaveChanges();
