@@ -102,5 +102,30 @@ namespace SD_340_W22SD_Final_Project_Group6.BLL
 
         }
 
-    }
+		public async Task<Ticket> GetTicketById(int id)
+		{
+			if (id == null)
+			{
+				return null;
+			}
+
+			Ticket ticket = _ticketRepo.Get(id);
+
+			ticket.Project = _projectRepo.Get(ticket.ProjectId);
+
+            return ticket;
+		}
+		public async Task<Ticket> DeleteTicket(int id)
+		{
+			Ticket ticket =  _ticketRepo.Get(id);
+			if (ticket == null)
+			{
+				return null;
+			}
+
+			 _ticketRepo.Delete(ticket);
+			return ticket;
+		}
+
+	}
 }
