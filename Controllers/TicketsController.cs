@@ -83,13 +83,13 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "ProjectManager")]
 		
-		public async Task<IActionResult> Create([Bind("Title, Body, RequiredHours, SelectedProject, Priority")]CreateTicketViewModel VM, string userId, int SelectedProject)
+		public async Task<IActionResult> Create([Bind("Title, Body, RequiredHours, SelectedProject, Priority")]CreateTicketViewModel VM, string userId)
         {
 
             try
             {
                 
-              Ticket ticket = await _ticketBL.CreateTicket(VM, userId, SelectedProject);
+              Ticket ticket = await _ticketBL.CreateTicket(VM, userId);
 
               return RedirectToAction("Index", "Projects", new { area = "" });
                 

@@ -81,7 +81,7 @@ namespace SD_340_W22SD_Final_Project_Group6.BLL
             
         }
 
-        public async Task<Ticket> CreateTicket (CreateTicketViewModel VM, string userId, int SelectedProject)
+        public async Task<Ticket> CreateTicket (CreateTicketViewModel VM, string userId)
         {
             
             Ticket ticket = new Ticket
@@ -92,7 +92,7 @@ namespace SD_340_W22SD_Final_Project_Group6.BLL
                 TicketPriority = VM.Priority
             };
 
-            ticket.ProjectId = SelectedProject;
+            ticket.ProjectId = VM.SelectedProject;
 
             ticket.OwnerId = userId;
 
