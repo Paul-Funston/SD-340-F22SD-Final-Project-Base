@@ -126,6 +126,29 @@ namespace SD_340_W22SD_Final_Project_Group6.BLL
 			 _ticketRepo.Delete(ticket);
 			return ticket;
 		}
+		public async Task<bool> DeleteTicketConfirmed(int ticketId, int projectId)
+		{
+			Ticket ticket =  _ticketRepo.Get(ticketId);
+			if (ticket == null)
+			{
+				return false;
+			}
+
+			Project project =  _projectRepo.Get(projectId);
+			if (project == null)
+			{
+				return false;
+			}
+
+			project.Tickets.Remove(ticket);
+
+			_projectRepo.Update(project);
+
+			_ticketRepo.Delete(ticket);
+			
+
+			return true;
+		}
 
 	}
 }

@@ -361,16 +361,21 @@ namespace SD_340_W22SD_Final_Project_Group6.Controllers
         [Authorize(Roles = "ProjectManager")]
         public async Task<IActionResult> DeleteConfirmed(int id, int projId)
         {
-			var ticket = await _ticketBL.DeleteTicket(id);
-
-			if (ticket == null)
+			try
 			{
-				return NotFound();
-			}
+				bool isDeleted = await _ticketBL.DeleteTicketConfirmed(id, projId);
+				if (!isDeleted)
+				{
+					return NotFound();
+				}
 
-			
-            return RedirectToAction("Index", "Projects");
-        }
+				return RedirectToAction("Index", "Projects");
+			}
+			catch (Exception ex)
+			{
+				return RedirectToAction("Error", "Home");
+			}
+		}
 
         private bool TicketExists(int id)
         {
